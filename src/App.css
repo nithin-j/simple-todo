@@ -27,6 +27,6 @@ a {
   cursor: pointer;
 }
 
-.btn :hover {
+.btn:hover {
   background: #666;
 }

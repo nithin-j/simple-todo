@@ -8,6 +8,11 @@ export class TodoItem extends Component {
       borderBottom: '2px #ccc solid',
       padding: '10px',
       margin: '5px 10% 5px 10%',
+    };
+  };
+
+  titleCustom = () => {
+    return {
       textDecoration: this.props.todo.completed ? 'line-through' : 'none',
     };
   };
@@ -22,7 +27,7 @@ export class TodoItem extends Component {
             type='checkbox'
             onChange={this.props.checkmark.bind(this, id)}
           />{' '}
-          {title}
+          <span style={this.titleCustom()}>{title}</span>
           <button
             onClick={this.props.deleteToDo.bind(this, id)}
             style={btnDeleteStyle}

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddToDo from './components/AddToDo';
+import About from './components/pages/About';
+import { v4 as uuid } from 'uuid';
 
 import './App.css';
 
@@ -9,17 +13,17 @@ class App extends Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid(),
         title: 'clean up the trash',
         completed: false,
       },
       {
-        id: 2,
+        id: uuid(),
         title: 'pay the mobile bill',
         completed: false,
       },
       {
-        id: 3,
+        id: uuid(),
         title: 'start react crash course',
         completed: false,
       },
@@ -39,7 +43,7 @@ class App extends Component {
 
   addToDo = (title) => {
     const newToDo = {
-      id: 4,
+      id: uuid(),
       title,
       completed: false,
     };
@@ -53,17 +57,28 @@ class App extends Component {
   };
   render() {
     return (
-      <div className='App'>
-        <div className='container'>
-          <Header />
-          <AddToDo addToDo={this.addToDo} />
-          <Todos
-            todos={this.state.todos}
-            checkMark={this.checkMark}
-            deleteToDo={this.deleteToDo}
-          />
+      <Router>
+        <div className='App'>
+          <div className='container'>
+            <Header />
+            <Route
+              path='/'
+              exact
+              render={(props) => (
+                <React.Fragment>
+                  <AddToDo addToDo={this.addToDo} />
+                  <Todos
+                    todos={this.state.todos}
+                    checkMark={this.checkMark}
+                    deleteToDo={this.deleteToDo}
+                  />
+                </React.Fragment>
+              )}
+            />
+            <Route path='/About' component={About} />
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
